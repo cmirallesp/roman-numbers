@@ -6,5 +6,6 @@ class NumbersTranslationTest < ActiveSupport::TestCase
 		assert_equal 4,t.roman_to_number("IV")
 		assert_equal 900,t.roman_to_number("CM")
 		assert_equal 291,t.roman_to_number("CCXCI")
+		assert_equal 944,t.roman_to_number("CMXLIV")
 	end
 end

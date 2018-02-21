@@ -23,9 +23,7 @@ class NumbersTranslation
 				#result  += (cur - prev)
 				result  -=  prev
 				result += (cur-prev)
-			elsif prev == cur
-				result += cur
-			else
+			else #  prev  >=cur
 				result +=cur
 			end
 			prev = cur
