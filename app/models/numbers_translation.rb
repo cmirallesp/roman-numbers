@@ -8,7 +8,6 @@ class NumbersTranslation
 		'D': 500,
 		'M': 1000
 	}
-	attr_accessor :R2N
 
 	def roman_to_number(roman)
 		#puts "0 #{result} #{roman.length}"
@@ -32,7 +31,38 @@ class NumbersTranslation
 		result
 	end
 
-	def number_to_roman(number)
+	N2R = {
+		1000 => 'M',
+		500 => 'D',
+		100 => 'C',
+		50 => 'L',
+		10 => 'X',
+		5 => 'V',
+		1 => 'I'
+	}
 
+	def number_to_roman(number, divisor = 1)
+		return "" if number == 0
+		raise "No numbers beyond 3999" if number > 3999
+		quotient       = number / divisor
+		if quotient > 9
+				number_to_roman(number, divisor * 10 )
+		else
+			roman_quotient =
+				if quotient.in? 1..3
+					"#{N2R[divisor] * quotient}" #I|C|M,II|CC|MM,III|CC|MM
+
+				elsif quotient.in? 4..8
+					r = N2R[divisor * 5] # V|L|D
+					pre = quotient == 4 ? N2R[divisor] : ""
+					suf = quotient.in?(6..8) ? N2R[divisor] * (quotient - 5) : ""
+					"#{pre}#{r}#{suf}"
+
+				elsif quotient == 9
+					"#{N2R[divisor]}#{N2R[divisor * 10]}"
+				end
+				roman_remainder = number_to_roman(number % divisor)
+				"#{roman_quotient}#{roman_remainder}"
+		end
 	end
 end
